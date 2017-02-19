@@ -63,6 +63,7 @@ for number in testNumbers:
     player.play()
 
     word_i = raw_input("What was the word? ")
+    end = time.time()
     player.pause()
 
     try:
@@ -76,8 +77,6 @@ for number in testNumbers:
         print("*"*20)
         raw_input("Wrong... It was actually {word}. Press Enter to continue.\n".format(word=word)+"*"*20)
         wrong += 1
-
-    end = time.time()
     q_times.append(end-start)
 
     player.delete()
