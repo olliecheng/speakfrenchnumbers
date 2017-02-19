@@ -23,13 +23,24 @@ total = raw_input("Test with how many numbers [10]: ")
 
 defaults = {"minimumRange": 1, "maximumRange": 100, "total": 10}
 
-for item in ["minimumRange", "maximumRange", "total"]:
-    try:
-        exec("var = int({item})".format(item=item))
-    except ValueError:
-        var = defaults[item]
+try:
+    int_item = int(minimumRange)
+    minimumRange = int_item
+except ValueError:
+    minimumRange = defaults["minimumRange"]
 
-    exec("{var} = {value}".format(var=item, value=var))
+try:
+    int_item = int(maximumRange)
+    maximumRange = int_item
+except ValueError:
+    maximumRange = defaults["maximumRange"]
+
+try:
+    int_item = int(total)
+    total = int_item
+except ValueError:
+    total = defaults["total"]
+
 maximumRange += 1
 
 numbers = range(minimumRange, maximumRange)
