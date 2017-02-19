@@ -2,15 +2,7 @@ from gtts import gTTS
 import pyglet
 import random
 from num2words import num2words
-import ssl
-try:
-    _create_unverified_https_context = ssl._create_unverified_context
-except AttributeError:
-    # Legacy Python that doesn't verify HTTPS certificates by default
-    pass
-else:
-    # Handle target environment that doesn't support HTTPS verification
-    ssl._create_default_https_context = _create_unverified_https_context
+import time
 
 
 #load AVBin
@@ -56,6 +48,7 @@ for _ in range(total):
 correct = 0
 wrong = 0
 
+start = time.time()
 for number in testNumbers:
     word = num2words(number, lang="fr")
     tts = gTTS(text=word, lang="fr")
@@ -84,7 +77,10 @@ for number in testNumbers:
 
     player.delete()
 
+end = time.time()
+
 percent = correct*100/float(total)
 print "Good job, {percent}%!".format(percent=percent)
 print "You chose {total} numbers out of a list, from {min}-{max}.".format(total=total, min=minimumRange, max=maximumRange-1)
+print "You took an average of %s seconds per question." %((end-start)/total)
 raw_input("Enter to continue...")
