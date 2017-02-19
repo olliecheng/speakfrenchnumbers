@@ -48,7 +48,7 @@ for _ in range(total):
 correct = 0
 wrong = 0
 
-start = time.time()
+q_times = []
 for number in testNumbers:
     word = num2words(number, lang="fr")
     tts = gTTS(text=word, lang="fr")
@@ -56,6 +56,8 @@ for number in testNumbers:
 
     player = pyglet.media.Player()
     speech = pyglet.media.load("word.mp3", streaming=False)
+
+    start = time.time()
     player.queue(speech)
     player.queue(speech)
     player.play()
@@ -75,12 +77,18 @@ for number in testNumbers:
         raw_input("Wrong... It was actually {word}. Press Enter to continue.\n".format(word=word)+"*"*20)
         wrong += 1
 
+    end = time.time()
+    q_times.append(end-start)
+
     player.delete()
 
-end = time.time()
 
 percent = correct*100/float(total)
 print "Good job, {percent}%!".format(percent=percent)
 print "You chose {total} numbers out of a list, from {min}-{max}.".format(total=total, min=minimumRange, max=maximumRange-1)
-print "You took an average of %s seconds per question." %((end-start)/total)
+
+_total = 0
+for item in q_times: _total += item
+average = _total/total
+print "You took an average of %s seconds per question." % average
 raw_input("Enter to continue...")
